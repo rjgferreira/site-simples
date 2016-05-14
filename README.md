@@ -20,3 +20,10 @@ Nessa fase do projeto você deverá criar um pequeno site em PHP com os seguinte
 - Quando o formulário for enviado, uma mensagem deve ser exibida para o usuário final: ◦Dados enviados com sucesso, abaixo seguem os dados que você enviou
   ◦Exibição dos campos preenchidos pelos usuário.
 
+Projeto 2 - Site simples em PHP
+
+        - Verificar sempre se o arquivo acessado existe
+        - Apresentar uma mensagem de erro 404 em caso de url inválida
+        - Criar função para fazer a verificação das rotas
+        - Registrar cada uma das rotas em um array
+        * Usando função anônima
