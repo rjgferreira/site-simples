@@ -1,7 +1,7 @@
       <div class="jumbotron">
         <h1><strong>Home</strong></h1>
         <p class="lead">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        <p><a class="btn btn-lg btn-success" href="?pg=empresa" role="button">Conheça nossa empresa!</a></p>
+        <p><a class="btn btn-lg btn-success" href="/empresa" role="button">Conheça nossa empresa!</a></p>
       </div>
       <div class="row marketing">
         <div class="col-lg-6">

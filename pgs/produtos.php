@@ -1,7 +1,7 @@
       <div class="jumbotron">
         <h1><strong>Produtos</strong></h1>
         <p class="lead">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-        <p><a class="btn btn-lg btn-success" href="?pg=servicos" role="button">Conheça nossos serviços!</a></p>
+        <p><a class="btn btn-lg btn-success" href="/servicos" role="button">Conheça nossos serviços!</a></p>
       </div>
       <div class="row marketing">
         <div class="col-lg-6">

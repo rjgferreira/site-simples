@@ -2,8 +2,8 @@
         <h1><strong>Contato</strong></h1>
         <p class="lead">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
       </div>
-      <?php if(isset($_GET['err'])) echo '<div class="alert alert-danger">'.$_GET['err'].'</div>';?>
-      <?php if(isset($_GET['dds'])) echo '<div class="alert alert-info">'.$_GET['dds'].'</div>';?>
+      <?php if(isset($_SESSION['dds'])){ echo '<div class="alert alert-info">'.urldecode($_SESSION['dds']).'</div>'; unset($_SESSION['N'],$_SESSION['E'],$_SESSION['A'],$_SESSION['M'],$_SESSION['err'],$_SESSION['dds']); }?>
+      <?php if(isset($_SESSION['err'])) echo '<div class="alert alert-danger">'.urldecode($_SESSION['err']).'</div>';?>
       <form class="form-signin" action="fnc/validar.php" method="post">
         <h2 class="form-signin-heading">Escreva pra gente!</h2>
         <label for="nome" class="sr-only">Nome</label>
