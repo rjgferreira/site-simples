@@ -53,17 +53,23 @@
 	</nav>
 
 <?php
+// Verifica e trata resultados de pesquisa
 if(isset($_SESSION['RESULT'])) {
 	if(is_array($_SESSION['RESULT'])){
-		echo '<h3>Resultados da pesquisa</h3>';
-		foreach($_SESSION['RESULT'] as $result){
-			echo '<p class="bg-warning" style="padding:10px;"><a href="/'.$result['pag_botao'].'">'.$result['pag_titulo'].'</a><br><span>'.$result['pag_chamada'].'</span></p>';
+		if(!empty($_SESSION['RESULT'])) {
+			echo '<h3>Resultados da pesquisa</h3>';
+			foreach ($_SESSION['RESULT'] as $result) {
+				echo '<p class="bg-info" style="padding:10px;"><a href="/' . $result['pag_botao'] . '">' . $result['pag_titulo'] . '</a><br><span>' . $result['pag_chamada'] . '</span></p>';
+			}
+		}else{
+			echo "<div class=\"alert alert-warning\">A pesquisa não obteve resultado para o termo utilizado. Por favor, tente novamente.</div>";
 		}
 	}else{
 		echo '<div class="alert alert-warning">'.$_SESSION['RESULT'].'</div>';
 	}
 	unset($_SESSION['RESULT']);
 }
+// Verifica a URL solicitada para leitura do conteúdo correspondente
 if($path!='') {
 	$vrfy = function ($v) use ($path) {
 		if ($v['pag_botao'] == $path) {
@@ -97,6 +103,7 @@ if($path!='') {
 			}
 			if(isset($_SESSION['err'])) {
 				echo '<div class="alert alert-danger">' . urldecode($_SESSION['err']) . '</div>';
+				unset($_SESSION['err']);
 			}
 		}
 		echo $pg['pag_conteudo_html'];
@@ -126,7 +133,7 @@ if($path!='') {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script>
-	<?php if($path=='') echo '$("ul li a").eq(0).addClass("btn-primary");'; ?>
+	<?php if($path=='') echo '$("ul li").eq(0).addClass("active");'; ?>
 	<?php if($path=='Contato')
 	 		if(isset($_SESSION['N']))
 	 			echo "$('input[name*=\"nome\"]').val('".$_SESSION['N']."');";

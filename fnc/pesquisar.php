@@ -5,8 +5,9 @@ if($_POST['busca']!=''){
     $conexao = conexaoDB();
     $sql = "SELECT pag_botao, pag_titulo, pag_chamada
             FROM paginas
-            WHERE pag_conteudo_html LIKE '%$_POST[busca]%'";
+            WHERE pag_conteudo_html LIKE :busca";
     $stmt = $conexao->prepare($sql);
+    $stmt->bindValue('busca',"%$_POST[busca]%");
     $stmt->execute();
     $_SESSION['RESULT'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     header("Location: ../$_POST[pg]");
