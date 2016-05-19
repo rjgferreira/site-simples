@@ -38,7 +38,7 @@
 				$stmt->execute();
 				$pgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 				foreach($pgs as $btn){
-					echo "\t\t\t\t\t".'<li class="'.($btn['pag_botao']==$path?'active':'').'"><a href="/'.$btn['pag_botao'].'">'.$btn['pag_botao'].'</a></li>';
+					echo '<li class="'.($btn['pag_botao']==$path?'active':'').'"><a href="/'.$btn['pag_botao'].'">'.$btn['pag_botao'].'</a></li>';
 				}
 				?>
 			</ul>
@@ -62,7 +62,7 @@ if(isset($_SESSION['RESULT'])) {
 				echo '<p class="bg-info" style="padding:10px;"><a href="/' . $result['pag_botao'] . '">' . $result['pag_titulo'] . '</a><br><span>' . $result['pag_chamada'] . '</span></p>';
 			}
 		}else{
-			echo "<div class=\"alert alert-warning\">A pesquisa não obteve resultado para o termo utilizado. Por favor, tente novamente.</div>";
+			echo "<div class=\"alert alert-warning\">A pesquisa n&atilde;o obteve resultado para o termo utilizado. Por favor, tente novamente.</div>";
 		}
 	}else{
 		echo '<div class="alert alert-warning">'.$_SESSION['RESULT'].'</div>';
@@ -81,10 +81,11 @@ if($path!='') {
 	};
 
 	array_walk($pgs, $vrfy);
-
+	// URL não corresponde?
 	if($_SESSION['STTS_URL']==FALSE) {
 		require_once("pgs/404.php");
 	}else{
+		// Recuperar informações da página solicitada
 		$sql = "SELECT pag_titulo, pag_chamada, pag_conteudo_html FROM paginas WHERE pag_botao = :btn";
 		$stmt = $conexao->prepare($sql);
 		$stmt->bindParam(":btn",$path);
@@ -109,6 +110,7 @@ if($path!='') {
 		echo $pg['pag_conteudo_html'];
 	}
 }else{
+	// URL em branco
 	$sql = "SELECT pag_titulo, pag_chamada, pag_conteudo_html FROM paginas WHERE pag_id = 1";
 	$stmt = $conexao->prepare($sql);
 	$stmt->execute();
