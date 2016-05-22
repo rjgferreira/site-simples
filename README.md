@@ -1,3 +1,13 @@
+Projeto 4 - Site simples em PHP
+
+        - Criar uma área restrita (acesso por login e senha).
+        - Acesso a listagem para edição de todas as páginas.
+        - Utilizar um editor online (TinyMCE)
+        - Se um usuário não autenticado acessar a URL de administração, ele deverá ser redirecionado para uma tela de login para ele se autenticar.
+        - Informações de autenticação gravadas no banco de forma segura.
+        - Fixture atualizada para adicionar o usuário e senha (usuário padrão admin, senha admin).
+
+
 Projeto 3 - Site simples em PHP
 
 - Alterarndo a estrutura do site para não mais incluir as páginas com "require", mas sim, buscando as informações no banco de dados
