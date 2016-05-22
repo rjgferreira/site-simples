@@ -12,14 +12,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Site Simples</title>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/css.css">
 </head>
 <body>
 <div class="container">
 	<nav class="navbar navbar-default">
-		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
@@ -30,7 +28,7 @@
 			<a class="navbar-brand" href="#">Site simpes</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav" style="margin-top:7px;">
+			<ul class="nav navbar-nav">
 				<?php
 				$conexao = conexaoDB();
 				$sql = "SELECT pag_botao FROM paginas";
@@ -40,7 +38,12 @@
 				foreach($pgs as $btn){
 					echo '<li class="'.($btn['pag_botao']==$path?'active':'').'"><a href="/'.$btn['pag_botao'].'">'.$btn['pag_botao'].'</a></li>';
 				}
+				if(isset($_SESSION['LGN'])&&$_SESSION['LGN']==TRUE)
+					echo '<li><a href="/login"><img src="img/open.png"></a></li>';
+				else
+					echo '<li><a href="/login"><img src="img/closed.png"></a></li>';
 				?>
+
 			</ul>
 			<form class="navbar-form navbar-right" role="search" action="fnc/pesquisar.php" method="post">
 				<div class="form-group">
@@ -83,7 +86,25 @@ if($path!='') {
 	array_walk($pgs, $vrfy);
 	// URL não corresponde?
 	if($_SESSION['STTS_URL']==FALSE) {
-		require_once("pgs/404.php");
+		if($path=='login') {
+			if(isset($_SESSION['err'])) {
+				echo '<div class="alert alert-danger">' . $_SESSION['err'] . '</div>';
+				unset($_SESSION['err']);
+			}
+			if(isset($_SESSION['vld'])){
+				echo '<div class="alert alert-info">'.$_SESSION['vld'].'</div>';
+				unset($_SESSION['L'],$_SESSION['vld']);
+			}
+			if(isset($_SESSION['LGN'])&&$_SESSION['LGN']==TRUE){
+				require_once("pgs/listar.php");
+			}else {
+				require_once("pgs/login.php");
+			}
+		}else if($path=='listar') {
+
+		}else{
+			require_once("pgs/404.php");
+		}
 	}else{
 		// Recuperar informações da página solicitada
 		$sql = "SELECT pag_titulo, pag_chamada, pag_conteudo_html FROM paginas WHERE pag_botao = :btn";
@@ -99,11 +120,11 @@ if($path!='') {
 <?php
 		if($path=='Contato'){
 			if(isset($_SESSION['dds'])){
-				echo '<div class="alert alert-info">'.urldecode($_SESSION['dds']).'</div>';
+				echo '<div class="alert alert-info">'.$_SESSION['dds'].'</div>';
 				unset($_SESSION['N'],$_SESSION['E'],$_SESSION['A'],$_SESSION['M'],$_SESSION['err'],$_SESSION['dds']);
 			}
 			if(isset($_SESSION['err'])) {
-				echo '<div class="alert alert-danger">' . urldecode($_SESSION['err']) . '</div>';
+				echo '<div class="alert alert-danger">' . $_SESSION['err'] . '</div>';
 				unset($_SESSION['err']);
 			}
 		}

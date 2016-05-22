@@ -1,15 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
 <?php
 
 require_once"conexaoDB.php";
-echo "********** Executando fixture<br>";
+echo "********** Executando fixture 'paginas'<br>";
 
 $conn = conexaoDB();
 
-echo "********** Removendo tabela<br>";
+echo "********** Removendo tabela 'paginas'<br>";
 $conn->query("DROP TABLE IF EXISTS paginas");
 echo "********** Feito!<br>";
 
-echo "********** Criando tabela<br>";
+echo "********** Criando tabela 'paginas'<br>";
 $conn->query("CREATE TABLE paginas (
 	pag_id INT NOT NULL AUTO_INCREMENT,
 	pag_botao VARCHAR(20) CHARACTER SET 'utf8' NOT NULL,
@@ -140,5 +147,40 @@ for($x=0;$x<=4;$x++){
 	));
 }
 echo "********** Feito!<br>";
-echo "********** Concluído.";
+echo "********** Executando fixture 'usuarios'<br>";
+
+echo "********** Removendo tabela 'usuarios'<br>";
+$conn->query("DROP TABLE IF EXISTS usuarios");
+echo "********** Feito!<br>";
+
+echo "********** Criando tabela 'usuarios'<br>";
+$conn->query("CREATE TABLE usuarios (
+	usu_id INT NOT NULL AUTO_INCREMENT,
+	usu_login VARCHAR(20) NOT NULL,
+	usu_senha VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+	PRIMARY KEY (usu_id),
+	UNIQUE(usu_id));");
+echo "********** Feito!<br>";
+echo "********** Inserindo dados...<br>";
+
+$usuario = 'admin';
+$options = [
+    'salt' => md5('384jksdo%783*'),
+    'cost' => 10
+];
+$senha = password_hash('admin', PASSWORD_DEFAULT, $options);
+$smt = $conn->prepare("INSERT INTO usuarios (
+                            usu_login,
+                            usu_senha)
+                        VALUE (
+                            :login,
+                            :senha);");
+$smt->execute(array(
+    ':login' => $usuario,
+    ':senha' => $senha
+));
+
+echo "********** Concluído.".$senha;
 ?>
+</body>
+</html>
