@@ -180,7 +180,7 @@ $smt->execute(array(
     ':senha' => $senha
 ));
 
-echo "********** Concluído.".$senha;
+echo "********** Concluído.";
 ?>
 </body>
 </html>

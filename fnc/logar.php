@@ -13,7 +13,7 @@ if($_POST['login']!='' && $_POST['senha']!=''){
     }else{
         if (password_verify($_POST['senha'], $user['usu_senha'])){
             // Usuário existe
-            $_SESSION['vld'] = utf8_encode('Bem-vindo à central admin.');
+            $_SESSION['vld'] = utf8_encode('Bem-vindo à central de administração.');
             $_SESSION['LGN'] = TRUE;
             header('Location: ../admin');
         } else {

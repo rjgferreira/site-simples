@@ -8,4 +8,3 @@ $stmt->bindParam(":id",$_POST['id']);
 $stmt->execute();
 $_SESSION['pg'] = $stmt->fetch(PDO::FETCH_ASSOC);
 header("Location: ../editar");
-?>

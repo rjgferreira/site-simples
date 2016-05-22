@@ -2,6 +2,10 @@
 	session_start();
 	$rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 	$path = urldecode(substr($rota['path'], 1));
+if(!isset($_SESSION['LGN'])){
+	$_SESSION['err'] = "Por favor, inicie uma se&ccedil;&atilde;o administrativa. ";
+	header('Location: ../login');
+}
 ?>
 <!doctype html>
 <html>
@@ -27,7 +31,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="/admin">Listar p&aacute;ginas</a></li>
+				<li><a href="/admin">Alterar p&aacute;ginas</a></li>
 			</ul>
 			<form action="../fnc/logar.php" method="post" style="float:right;margin-top:8px;">
 				<button type="submit" class="btn btn-warning" >Sair</button>
@@ -37,7 +41,7 @@
 	</nav>
 
 <?php
-	if($path=='admin')
+	if($path=='admin'||$path=='admin/listar')
 		require_once("pgs/listar.php");
 	else if($path=='admin/editar')
 		require_once("pgs/editar.php");
@@ -52,7 +56,16 @@
 <![endif]-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<?php if($path=='admin/editar') echo '<script src="fnc/tinymce/tinymce.min.js"></script>'; ?>
 <script>
+	<?php if($path=='admin/editar'){ ?>
+	tinymce.init({
+		selector:'textarea#conteudo',
+		plugins: "code",
+		menubar: "tools"
+	});
+	<?php } ?>
+
 	<?php if($path=='') echo '$("ul li").eq(0).addClass("active");'; ?>
 	<?php if($path=='Contato')
 	 		if(isset($_SESSION['N']))

@@ -1,4 +1,5 @@
 <h2>Listando p&aacute;ginas</h2>
+<?php if(isset($_SESSION['vld'])) echo '<div class="alert alert-info">'.$_SESSION['vld'].'</div>'; unset($_SESSION['vld']);?>
 <table class="table">
     <thead>
         <th>ID</th>
